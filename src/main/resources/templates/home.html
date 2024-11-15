@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Shoppers</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+  
+  <div class="site-wrap">
+    <header class="site-navbar" role="banner">
+      <div class="site-navbar-top">
+        <div class="container">
+          <div class="row align-items-center">
+            <!--Search bar-->
+            <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+              <form action="" class="site-block-top-search">
+                <span class="icon icon-search2"></span>
+                <input type="text" class="form-control border-0" placeholder="Search">
+              </form>
+            </div>
+
+            <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+              <div class="site-logo">
+                <a href="shop.html" class="js-logo-clone">Shoppers</a>
+              </div>
+            </div>
+            <!--Navigation -->
+            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+              <div class="site-top-icons">
+                <ul>
+                  <li class="dropdown">
+                    <a href="#" id="user-icon" class="dropdown-toggle"><span class="icon icon-person"></span></a>
+                    <div id="user-menu" class="dropdown-menu" style="display: none;">
+                      <p>User Name</p>
+                      <a href="#" id="logout">Logout</a>
+                    </div>
+                  </li>
+                  <!--Cart icon-->
+                  <li>
+                    <a href="cart.html" class="site-cart">
+                      <span class="icon icon-shopping_cart"></span>
+                      <span class="count">2</span>
+                    </a>
+                  </li> 
+                </ul>
+              </div> 
+            </div>
+
+          </div>
+        </div>
+    </li>  </div> 
+      
+    </header>
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0">
+            <!-- <a href="shop.html">Shop</a> -->
+            <!-- <span class="mx-2 mb-0">/</span> 
+            <strong class="text-black">Shop</strong> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+
+        <div class="row mb-5">
+          <div class="col-md-12 order-2">
+
+            <div class="row">
+              <div class="col-md-12 mb-5">
+                <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
+                <div class="d-flex">
+                  <div class="dropdown mr-1 ml-md-auto">
+                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuCategory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Category
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuCategory">
+                      <button class="dropdown-item" type="button" data-value="All">All</button>
+                      <button class="dropdown-item" type="button" data-value="Men">Men</button>
+                      <button class="dropdown-item" type="button" data-value="Women">Women</button>
+                      <button class="dropdown-item" type="button" data-value="Children">Children</button>
+                    </div>
+                  </div>
+                  
+                  <div class="dropdown mr-1">
+                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuPrice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Price
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuPrice">
+                      <button class="dropdown-item" type="button" data-value="All">All</button>
+                      <button class="dropdown-item" type="button" data-value="low-to-high">Price, low to high</button>
+                      <button class="dropdown-item" type="button" data-value="high-to-low">Price, high to low</button>
+                    </div>
+                  </div>
+      
+                  <div class="dropdown mr-1">
+                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuBrand" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Brand
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuBrand">
+                      <button class="dropdown-item" type="button" data-value="All">All</button>
+                      <button class="dropdown-item" type="button" data-value="Brand A">Brand A</button>
+                      <button class="dropdown-item" type="button" data-value="Brand B">Brand B</button>
+                      <button class="dropdown-item" type="button" data-value="Brand C">Brand C</button>
+                    </div>
+                  </div>
+      
+                  <div class="dropdown mr-1">
+                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Color
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuColor">
+                      <button class="dropdown-item" type="button" data-value="All">All</button>
+                      <button class="dropdown-item" type="button" data-value="Red">Red</button>
+                      <button class="dropdown-item" type="button" data-value="Blue">Blue</button>
+                      <button class="dropdown-item" type="button" data-value="Green">Green</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product list -->
+            <div class="row mb-5">
+
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Tank Top</a></h3>
+                    <p class="mb-0">Finding perfect t-shirt</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Corater</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">T-Shirt Mockup</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Corater</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Tank Top</a></h3>
+                    <p class="mb-0">Finding perfect t-shirt</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Corater</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">T-Shirt Mockup</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Corater</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Tank Top</a></h3>
+                    <p class="mb-0">Finding perfect t-shirt</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                  <figure class="block-4-image">
+                    <a href="shop-single.html"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
+                    <p class="mb-0">Finding perfect products</p>
+                    <p class="text-primary font-weight-bold">$50</p>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <!-- Pagination -->
+            <div class="row" data-aos="fade-up">
+              <div class="col-md-12 text-center">
+                <div class="site-block-27">
+                  <ul>
+                    <li><a href="#">&lt;</a></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&gt;</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+
+  <script src="js/main.js"></script>
+  
+
+  <!-- Script for dropdown filter -->
+  <script>
+    var filters = {};
+  
+    document.querySelectorAll('.dropdown-item').forEach(function(button) {
+      button.addEventListener('click', function() {
+        var value = this.getAttribute('data-value');
+        var dropdownButton = this.closest('.dropdown').querySelector('.dropdown-toggle');
+        dropdownButton.textContent = value;
+  
+        // Lưu trữ giá trị đã chọn
+        var filterType = dropdownButton.id.replace('dropdownMenu', '').toLowerCase();
+        if (value === 'All') {
+          delete filters[filterType];
+        } else {
+          filters[filterType] = value;
+        }
+  
+        // Gửi giá trị tới server để lấy dữ liệu
+        fetch('/your-server-endpoint', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(filters)
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Xử lý dữ liệu nhận được từ server
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    });
+  </script>
+  </body>
+</html>
