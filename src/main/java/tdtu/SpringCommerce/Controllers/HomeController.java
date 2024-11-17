@@ -18,8 +18,23 @@ public class HomeController {
         return "cart";
     }
 
-    @GetMapping("/checkout")
+    @GetMapping("cart/checkout")
     public String checkout() {
         return "checkout";
+    }
+
+    @GetMapping("/thankyou")
+    public String thankyouPage() {
+        return "thankyou";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 }
