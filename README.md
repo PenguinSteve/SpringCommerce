@@ -42,6 +42,9 @@ Viable Product) với các tính năng sau:
 - Kiểm tra xem database đã chạy trên Docker Desktop chưa.
 - Khởi động IDE (eg. IntelliJ) và khởi chạy thư mục chứa dự án.
 - Truy cập vào localhost:8080.
+- Có thể test với việc không đăng nhập hoặc sử dụng tài khoản test là:
+  + ADMIN: email: admin@gmail.com; password: admin
+  + USER: email: test@gmail.com; password: test
 
 Các Restful API của dự án:
 - Login:
