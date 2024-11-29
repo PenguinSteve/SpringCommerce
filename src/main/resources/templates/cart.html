@@ -54,7 +54,7 @@
                   <li>
                     <a href="cart" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
+                      <span class="count">0</span>
                     </a>
                   </li> 
                  
@@ -93,51 +93,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="product-thumbnail">
-                      <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
-                    </td>
-                    <td class="product-name">
-                      <h2 class="h5 text-black">Top Up T-Shirt</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td class="product-quantity text-center">
-                      <div class="input-group mb-3" style="max-width: 120px; margin: 0 auto;">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                      </div>
-                      <input type="text" class="form-control text-center" value="1" required placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                      </div>
-                      </div>
-                    </td>
-                    <td>$49.00</td>
-                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
-                  </tr>
-
-                  <tr>
-                    <td class="product-thumbnail">
-                      <img src="images/cloth_2.jpg" alt="Image" class="img-fluid">
-                    </td>
-                    <td class="product-name">
-                      <h2 class="h5 text-black">Polo Shirt</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td class="product-quantity text-center">
-                      <div class="input-group mb-3" style="max-width: 120px; margin: 0 auto;">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                      </div>
-                      <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                      </div>
-                      </div>
-                    </td>
-                    <td>$49.00</td>
-                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -170,7 +125,7 @@
                     <span class="text-black">Total quantity</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black">2</strong>
+                    <strong class="text-black" id="total-quantity">0</strong>
                   </div>
                 </div>
                 <div class="row mb-5">
@@ -178,7 +133,7 @@
                     <span class="text-black">Total</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black">$230.00</strong>
+                    <strong class="text-black" id="total-price">$0.0</strong>
                   </div>
                 </div>
 
@@ -206,20 +161,102 @@
   <script src="js/main.js"></script>
   <script>
     $(document).ready(function() {
-      $('.form-control').on('input', function() {
-        if (parseInt($(this).val()) < 1 || isNaN($(this).val())) {
-          $(this).val(1);
-        }
-      });
       const user = JSON.parse(localStorage.getItem('user'));
+      const cartId = localStorage.getItem('cartId');
+
       if (user) {
         $('#user').text(user.name);
         $('#login').hide();
         $('#register').hide();
         $('#logout').show();
       }
-    });
 
+      function updateCartTotals(cartItems) {
+        let totalQuantity = 0;
+        let totalPrice = 0.0;
+        let count = 0;
+        cartItems.forEach(item => {
+          totalQuantity += item.quantity;
+          totalPrice += item.totalPrice;
+          count++;
+        });
+
+        $('#total-quantity').text(totalQuantity);
+        $('#total-price').text(`$${totalPrice.toFixed(2)}`);
+        $('.count').text(count);
+      }
+
+      function renderCartItems(cartItems) {
+        let cartHtml = '';
+        cartItems.forEach(item => {
+          cartHtml += `
+        <tr>
+          <td class="product-thumbnail">
+            <img src="${item.product.imageURL}" alt="Image" class="img-fluid">
+          </td>
+          <td class="product-name">
+            <h2 class="h5 text-black">${item.product.name}</h2>
+          </td>
+          <td>$${item.unitPrice.toFixed(2)}</td>
+          <td class="product-quantity text-center">
+            <div class="input-group mb-3" style="max-width: 120px; margin: 0 auto;">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+              </div>
+              <input type="text" class="form-control text-center" value="${item.quantity}" required placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+              </div>
+            </div>
+          </td>
+          <td>$${item.totalPrice.toFixed(2)}</td>
+          <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+        </tr>
+      `;
+        });
+        $('tbody').html(cartHtml);
+      }
+
+      if (user && cartId) {
+        const token = localStorage.getItem('token');
+        $.ajax({
+          url: `http://localhost:8080/api/cart/${cartId}`,
+          type: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          success: function(cartResponse) {
+            const cartItems = cartResponse.data.cartItems;
+            renderCartItems(cartItems);
+            updateCartTotals(cartItems);
+          },
+          error: function(error) {
+            console.error('Error fetching cart details:', error);
+          }
+        });
+      } else {
+        let items = JSON.parse(localStorage.getItem('items')) || [];
+        renderCartItems(items);
+        updateCartTotals(items);
+      }
+
+      $('#logout').on('click', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+          url: '/logout',
+          type: 'POST',
+          success: function(response) {
+            localStorage.clear();
+            window.location.href = '/';
+          },
+          error: function(error) {
+            console.error('Error logging out:', error);
+            alert('There was an error logging out. Please try again later.');
+          }
+        });
+      });
+    });
   </script>
   </body>
 </html>

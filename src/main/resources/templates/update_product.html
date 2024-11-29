@@ -129,11 +129,24 @@
   
   <script>
     $(document).ready(function() {
+      //Logout
       $('#logout').on('click', function(event) {
         event.preventDefault();
-        localStorage.clear();
-        window.location.href = '/logout';
+
+        $.ajax({
+          url: '/logout',
+          type: 'POST',
+          success: function(response) {
+            localStorage.clear();
+            window.location.href = '/';
+          },
+          error: function(error) {
+            console.error('Error logging out:', error);
+            alert('There was an error logging out. Please try again later.');
+          }
+        });
       });
+
 
       $('#image').on('change', function(event) {
         const file = event.target.files[0];

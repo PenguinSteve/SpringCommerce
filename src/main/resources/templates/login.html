@@ -106,12 +106,13 @@
           success: function(response) {
             if(response.message === 'Login successfully'){
               // Extract token and role from the response data
+              localStorage.clear();
               const token = response.data.token;
 
               const user = response.data.user;
 
               // Store the JWT token in local storage
-              localStorage.setItem('jwtToken', token);
+              localStorage.setItem('token', token);
               localStorage.setItem('user', JSON.stringify(user))
               // Check the user's role and redirect accordingly
               if (user.role === 'ADMIN') {

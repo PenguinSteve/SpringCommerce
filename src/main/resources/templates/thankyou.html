@@ -53,7 +53,7 @@
                   <li>
                     <a href="cart" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
+                      <span class="count">0</span>
                     </a>
                   </li> 
                  
@@ -106,6 +106,25 @@
         $('#register').hide();
         $('#logout').show();
       }
+
+      //Logout
+      $('#logout').on('click', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+          url: '/logout',
+          type: 'POST',
+          success: function(response) {
+            localStorage.clear();
+            window.location.href = '/';
+          },
+          error: function(error) {
+            console.error('Error logging out:', error);
+            alert('There was an error logging out. Please try again later.');
+          }
+        });
+      });
+
     });
   </script>
   </body>

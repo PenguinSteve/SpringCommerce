@@ -31,7 +31,7 @@ public class ApiCartItemController {
                 cartId = cartService.initializeNewCart(userId);
             }
             cartItemService.addItemToCart(cartId, productId, quantity);
-            return ResponseEntity.ok(new ApiResponse("Add Item Success", null));
+            return ResponseEntity.ok(new ApiResponse("Add Item Success", cartId));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }

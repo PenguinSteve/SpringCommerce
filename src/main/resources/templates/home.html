@@ -1,384 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Shoppers</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <title>Shoppers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
-    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+  <link rel="stylesheet" href="/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-    <link rel="stylesheet" href="/css/jquery-ui.css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
 
-    <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/aos.css">
 
-    <link rel="stylesheet" href="/css/style.css">
-    
-  </head>
-  <body>
-  
-  <div class="site-wrap">
-    <header class="site-navbar" role="banner">
-      <div class="site-navbar-top">
-        <div class="container">
-          <div class="row align-items-center">
-            <!--Search bar-->
-            <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
-              <form action="" class="site-block-top-search">
-                <span class="icon icon-search2"></span>
-                <input type="text" class="form-control border-0" placeholder="Search">
-              </form>
-            </div>
+  <link rel="stylesheet" href="/css/style.css">
 
-            <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
-              <div class="site-logo">
-                <a href="/" class="js-logo-clone">Shoppers</a>
-              </div>
-            </div>
-            <!--Navigation -->
-            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
-              <div class="site-top-icons">
-                <ul>
-                  <li class="dropdown">
-                    <a href="#" id="user-icon" class="dropdown-toggle"><span class="icon icon-person"></span></a>
-                    <div id="user-menu" class="dropdown-menu" style="display: none;">
-                      <p id="user">Guest</p>
-                      <a href="/login" id="login">Login</a>
-                      <a href="" id="logout" style="display: none;">Logout</a>
-                      <a href="/register" id="register">Register</a>
-                    </div>
-                  </li>
-                  <!--Cart icon-->
-                  <li>
-                    <a href="/cart" class="site-cart">
-                      <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
-                    </a>
-                  </li> 
-                </ul>
-              </div> 
-            </div>
+</head>
+<body>
 
-          </div>
-        </div>
-    </div>
-      
-    </header>
-
-    <div class="bg-light py-3">
+<div class="site-wrap">
+  <header class="site-navbar" role="banner">
+    <div class="site-navbar-top">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12 mb-0">
-            <!-- <a href="shop.html">Shop</a> -->
-            <!-- <span class="mx-2 mb-0">/</span> 
-            <strong class="text-black">Shop</strong> -->
+        <div class="row align-items-center">
+          <!--Search bar-->
+          <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+            <form action="" class="site-block-top-search">
+              <span class="icon icon-search2"></span>
+              <input type="text" class="form-control border-0" placeholder="Search">
+            </form>
           </div>
+
+          <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+            <div class="site-logo">
+              <a href="/" class="js-logo-clone">Shoppers</a>
+            </div>
+          </div>
+          <!--Navigation -->
+          <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+            <div class="site-top-icons">
+              <ul>
+                <li class="dropdown">
+                  <a href="#" id="user-icon" class="dropdown-toggle"><span class="icon icon-person"></span></a>
+                  <div id="user-menu" class="dropdown-menu" style="display: none;">
+                    <p id="user">Guest</p>
+                    <a href="/login" id="login">Login</a>
+                    <a href="" id="logout" style="display: none;">Logout</a>
+                    <a href="/register" id="register">Register</a>
+                  </div>
+                </li>
+                <!--Cart icon-->
+                <li>
+                  <a href="/cart" class="site-cart">
+                    <span class="icon icon-shopping_cart"></span>
+                    <span class="count">0</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="site-section">
-      <div class="container">
+  </header>
 
-        <div class="row mb-5">
-          <div class="col-md-12 order-2">
-
-            <div class="row">
-              <div class="col-md-12 mb-5">
-                <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
-                <div class="d-flex">
-                  <div class="dropdown mr-1 ml-md-auto">
-                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuCategory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Category
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuCategory">
-                      <button class="dropdown-item" type="button" data-value="All">All</button>
-                      <button class="dropdown-item" type="button" data-value="Men">Men</button>
-                      <button class="dropdown-item" type="button" data-value="Women">Women</button>
-                      <button class="dropdown-item" type="button" data-value="Children">Children</button>
-                    </div>
-                  </div>
-                  
-                  <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuPrice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Price
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuPrice">
-                      <button class="dropdown-item" type="button" data-value="All">All</button>
-                      <button class="dropdown-item" type="button" data-value="low-to-high">Price, low to high</button>
-                      <button class="dropdown-item" type="button" data-value="high-to-low">Price, high to low</button>
-                    </div>
-                  </div>
-      
-                  <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuBrand" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Brand
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuBrand">
-                      <button class="dropdown-item" type="button" data-value="All">All</button>
-                      <button class="dropdown-item" type="button" data-value="Brand A">Brand A</button>
-                      <button class="dropdown-item" type="button" data-value="Brand B">Brand B</button>
-                      <button class="dropdown-item" type="button" data-value="Brand C">Brand C</button>
-                    </div>
-                  </div>
-      
-                  <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Color
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuColor">
-                      <button class="dropdown-item" type="button" data-value="All">All</button>
-                      <button class="dropdown-item" type="button" data-value="Red">Red</button>
-                      <button class="dropdown-item" type="button" data-value="Blue">Blue</button>
-                      <button class="dropdown-item" type="button" data-value="Green">Green</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Product list -->
-            <div class="row mb-5">
-
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="product/1"><img src="/images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="product/1">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.html"><img src="/images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-            <!-- Pagination -->
-            <div class="row" data-aos="fade-up">
-              <div class="col-md-12 text-center">
-                <div class="site-block-27">
-                  <ul>
-                    <li><a href="#">&lt;</a></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="bg-light py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-0">
+          <!-- <a href="shop.html">Shop</a> -->
+          <!-- <span class="mx-2 mb-0">/</span>
+          <strong class="text-black">Shop</strong> -->
         </div>
       </div>
     </div>
-
   </div>
 
-  <script src="/js/jquery-3.3.1.min.js"></script>
-  <script src="/js/jquery-ui.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/owl.carousel.min.js"></script>
-  <script src="/js/jquery.magnific-popup.min.js"></script>
-  <script src="/js/aos.js"></script>
+  <div class="site-section">
+    <div class="container">
 
-  <script src="/js/main.js"></script>
-  
+      <div class="row mb-5">
+        <div class="col-md-12 order-2">
 
-  <!-- Script for dropdown filter -->
-  <script>
-    $(document).ready(function() {
+          <div class="row">
+            <div class="col-md-12 mb-5">
+              <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
+              <div class="d-flex">
+                <div class="dropdown mr-1 ml-md-auto">
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuCategory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Category
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuCategory">
+                    <button class="dropdown-item" type="button" data-value="All">All</button>
+                    <button class="dropdown-item" type="button" data-value="Men">Men</button>
+                    <button class="dropdown-item" type="button" data-value="Women">Women</button>
+                    <button class="dropdown-item" type="button" data-value="Children">Children</button>
+                  </div>
+                </div>
 
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        $('#user').text(user.name);
-        $('#login').hide();
-        $('#register').hide();
-        $('#logout').show();
-      }
+                <div class="dropdown mr-1">
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuPrice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Price
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuPrice">
+                    <button class="dropdown-item" type="button" data-value="All">All</button>
+                    <button class="dropdown-item" type="button" data-value="low-to-high">Price, low to high</button>
+                    <button class="dropdown-item" type="button" data-value="high-to-low">Price, high to low</button>
+                  </div>
+                </div>
 
-      $('#logout').on('click', function(event) {
-        event.preventDefault();
-        localStorage.clear();
-        window.location.href = '/logout';
-      });
+                <div class="dropdown mr-1">
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuBrand" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Brand
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuBrand">
+                    <button class="dropdown-item" type="button" data-value="All">All</button>
+                    <button class="dropdown-item" type="button" data-value="Brand A">Brand A</button>
+                    <button class="dropdown-item" type="button" data-value="Brand B">Brand B</button>
+                    <button class="dropdown-item" type="button" data-value="Brand C">Brand C</button>
+                  </div>
+                </div>
 
-      var filters = {};
+                <div class="dropdown mr-1">
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Color
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuColor">
+                    <button class="dropdown-item" type="button" data-value="All">All</button>
+                    <button class="dropdown-item" type="button" data-value="Red">Red</button>
+                    <button class="dropdown-item" type="button" data-value="Blue">Blue</button>
+                    <button class="dropdown-item" type="button" data-value="Green">Green</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      $('.dropdown-item').on('click', function() {
-        var value = $(this).data('value');
-        var dropdownButton = $(this).closest('.dropdown').find('.dropdown-toggle');
-        dropdownButton.text(value);
+          <!-- Product list -->
+          <div id="product-container" class="row mb-5">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        // Store the selected value
-        var filterType = dropdownButton.attr('id').replace('dropdownMenu', '').toLowerCase();
-        if (value === 'All') {
-          delete filters[filterType];
-        } else {
-          filters[filterType] = value;
+</div>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+<!-- Script for dropdown filter -->
+<script>
+  $(document).ready(function() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const cartId = localStorage.getItem('cartId');
+
+    if (user) {
+      $('#user').text(user.name);
+      $('#login').hide();
+      $('#register').hide();
+      $('#logout').show();
+    }
+
+    if (user && cartId) {
+      const token = localStorage.getItem('token');
+      $.ajax({
+        url: `http://localhost:8080/api/cart/${cartId}`,
+        type: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        success: function(cartResponse) {
+          const cartItems = cartResponse.data.cartItems;
+          $('.count').text(cartItems.length);
+        },
+        error: function(error) {
+          console.error('Error fetching cart details:', error);
         }
+      });
+    } else {
+      let items = JSON.parse(localStorage.getItem('items')) || [];
+      $('.count').text(items.length);
+    }
 
-        // Send the values to the server to get data
+
+    //Logout
+    $('#logout').on('click', function(event) {
+      event.preventDefault();
+
+      $.ajax({
+        url: '/logout',
+        type: 'POST',
+        success: function(response) {
+          localStorage.clear();
+          window.location.href = '/';
+        },
+        error: function(error) {
+          console.error('Error logging out:', error);
+          alert('There was an error logging out. Please try again later.');
+        }
+      });
+    });
+
+    // Function to render products
+    function renderProducts(products) {
+      const productContainer = $('#product-container');
+      productContainer.empty();
+      products.forEach(product => {
+        const productHtml = `
+        <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+          <div class="block-4 text-center border">
+            <figure class="block-4-image">
+              <a href="product/${product.productId}"><img src="${product.imageURL}" alt="Image placeholder" class="img-fluid"></a>
+            </figure>
+            <div class="block-4-text p-4">
+              <h3><a href="product/${product.productId}">${product.name}</a></h3>
+              <p class="mb-0">${product.description}</p>
+              <p class="text-primary font-weight-bold">$${product.price}</p>
+            </div>
+          </div>
+        </div>
+      `;
+        productContainer.append(productHtml);
+      });
+    }
+
+    // Function to render categories
+    function renderCategories(categories) {
+      const categoryDropdown = $('#dropdownMenuCategory').next('.dropdown-menu');
+      categoryDropdown.empty();
+      categoryDropdown.append('<button class="dropdown-item" type="button" data-value="All">All</button>');
+      categories.forEach(category => {
+        const categoryHtml = `<button class="dropdown-item" type="button" data-value="${category.name}">${category.name}</button>`;
+        categoryDropdown.append(categoryHtml);
+      });
+    }
+
+    // Function to render brands
+    function renderBrands(brands) {
+      const brandDropdown = $('#dropdownMenuBrand').next('.dropdown-menu');
+      brandDropdown.empty();
+      brandDropdown.append('<button class="dropdown-item" type="button" data-value="All">All</button>');
+      brands.forEach(brand => {
+        const brandHtml = `<button class="dropdown-item" type="button" data-value="${brand}">${brand}</button>`;
+        brandDropdown.append(brandHtml);
+      });
+    }
+
+    // Function to render colors
+    function renderColors(colors) {
+      const colorDropdown = $('#dropdownMenuColor').next('.dropdown-menu');
+      colorDropdown.empty();
+      colorDropdown.append('<button class="dropdown-item" type="button" data-value="All">All</button>');
+      colors.forEach(color => {
+        const colorHtml = `<button class="dropdown-item" type="button" data-value="${color}">${color}</button>`;
+        colorDropdown.append(colorHtml);
+      });
+    }
+
+    // AJAX call to get all products
+    $.ajax({
+      url: '/api/product/',
+      type: 'GET',
+      success: function(response) {
+        const products = response.data;
+        renderProducts(products);
+
+        // Extract unique brands and colors
+        const brands = new Set();
+        const colors = new Set();
+        products.forEach(product => {
+          brands.add(product.brand);
+          colors.add(product.color);
+        });
+
+        // Render brands and colors
+        renderBrands(Array.from(brands));
+        renderColors(Array.from(colors));
+      },
+      error: function(error) {
+        console.error('Error:', error);
+      }
+    });
+
+    // AJAX call to get all categories
+    $.ajax({
+      url: '/api/category/',
+      type: 'GET',
+      success: function(response) {
+        renderCategories(response.data);
+      },
+      error: function(error) {
+        console.error('Error:', error);
+      }
+    });
+
+    // Event listener for search bar
+    $('.site-block-top-search input').on('input', function(event) {
+      const searchTerm = $(this).val();
+      if (searchTerm) {
         $.ajax({
-          url: '/your-server-endpoint',
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(filters),
-          success: function(data) {
-            // Handle the data received from the server
-            console.log(data);
+          url: `/api/product/searchByName?name=${encodeURIComponent(searchTerm)}`,
+          type: 'GET',
+          success: function(response) {
+            renderProducts(response.data);
           },
           error: function(error) {
             console.error('Error:', error);
           }
         });
-      });
+      }
     });
 
-  </script>
-  </body>
+    // Function to get filter criteria and call the API
+    function applyFilters() {
+      const category = $('#dropdownMenuCategory').text().trim() !== 'Category' ? $('#dropdownMenuCategory').text().trim() : '';
+      const brand = $('#dropdownMenuBrand').text().trim() !== 'Brand' ? $('#dropdownMenuBrand').text().trim() : '';
+      const color = $('#dropdownMenuColor').text().trim() !== 'Color' ? $('#dropdownMenuColor').text().trim() : '';
+      const sortOrder = $('#dropdownMenuPrice').text().trim() !== 'Price' ? $('#dropdownMenuPrice').text().trim() : '';
+
+      const queryParams = [];
+      if (category) queryParams.push(`category=${encodeURIComponent(category)}`);
+      if (brand) queryParams.push(`brand=${encodeURIComponent(brand)}`);
+      if (color) queryParams.push(`color=${encodeURIComponent(color)}`);
+      if (sortOrder) {
+        if (sortOrder === 'Price, low to high') {
+          queryParams.push('sortOrder=asc');
+        } else if (sortOrder === 'Price, high to low') {
+          queryParams.push('sortOrder=desc');
+        }
+      }
+
+      const queryString = queryParams.length ? `?${queryParams.join('&')}` : '';
+
+      $.ajax({
+        url: `/api/product/search${queryString}`,
+        type: 'GET',
+        success: function(response) {
+          renderProducts(response.data);
+        },
+        error: function(error) {
+          console.error('Error:', error);
+        }
+      });
+    }
+
+    // Event listeners for filter dropdowns and sort order
+    $('.dropdown-menu').on('click', '.dropdown-item', function() {
+      const dropdownButton = $(this).closest('.dropdown').find('.btn');
+      const selectedValue = $(this).data('value');
+      if (selectedValue !== 'All') {
+        dropdownButton.text($(this).text());
+      } else {
+        dropdownButton.text(dropdownButton.attr('id').replace('dropdownMenu', ''));
+      }
+      applyFilters();
+    });
+
+
+
+
+
+  });
+</script>
+</body>
 </html>

@@ -83,25 +83,22 @@ public class DataInitializer {
         Category watchCategory = categoryRepository.findByName("Watch").orElseThrow(() -> new RuntimeException("Category not found"));
 
         List<Product> products = List.of(
-                new Product("Smartphone Elite X", 799.99, "MobileGear", "Black", "A flagship smartphone with cutting-edge features.", "https://via.placeholder.com/150", mobileCategory),
-                new Product("Smartphone Lite Z", 599.99, "TechNova", "Blue", "Affordable smartphone with a great camera.", "https://via.placeholder.com/150", mobileCategory),
-                new Product("Smartphone Max Pro", 999.99, "MobileX", "Silver", "High-end smartphone with a stunning OLED display.", "https://via.placeholder.com/150", mobileCategory),
-                new Product("Ultra Laptop Pro", 1299.99, "TechNova", "Silver", "High-performance laptop for professionals.", "https://via.placeholder.com/150", laptopCategory),
-                new Product("Gaming Laptop G7", 1499.99, "GameCraft", "Black", "Designed for gamers with powerful GPU and RGB lighting.", "https://via.placeholder.com/150", laptopCategory),
-                new Product("Laptop Slimbook", 899.99, "LightTech", "Gray", "Lightweight laptop for everyday use.", "https://via.placeholder.com/150", laptopCategory),
-                new Product("Smart Fitness Watch", 199.99, "FitTime", "Black", "Track your fitness and health metrics in style.", "https://via.placeholder.com/150", watchCategory),
-                new Product("Luxury Smartwatch", 399.99, "TimePro", "Gold", "Premium smartwatch with elegant design.", "https://via.placeholder.com/150", watchCategory),
-                new Product("Sports Watch Active", 149.99, "RunTime", "Red", "Durable smartwatch for active lifestyles.", "https://via.placeholder.com/150", watchCategory),
-                new Product("Smartphone PowerMax", 899.99, "PhoneTech", "White", "Long battery life and fast performance.", "https://via.placeholder.com/150", mobileCategory),
-                new Product("Laptop Pro Studio", 1599.99, "CreatorHub", "Black", "Ideal laptop for creative professionals.", "https://via.placeholder.com/150", laptopCategory),
-                new Product("Slim Smartwatch", 179.99, "HealthTime", "Silver", "A stylish smartwatch with health tracking features.", "https://via.placeholder.com/150", watchCategory),
-                new Product("Smartphone Compact Y", 699.99, "HandyTech", "Green", "Compact design with top-tier performance.", "https://via.placeholder.com/150", mobileCategory),
-                new Product("Laptop Budget B", 499.99, "BudgetPC", "Blue", "Affordable laptop with essential features.", "https://via.placeholder.com/150", laptopCategory),
-                new Product("Hybrid Smartwatch", 249.99, "TimeBlend", "Brown", "Combines traditional watch design with smart features.", "https://via.placeholder.com/150", watchCategory)
+                // Mobile
+                new Product("Smartphone Nova A1", 699.99, "TechNova", "Black", "Affordable smartphone with solid performance.", "https://cdn.tgdd.vn/Products/Images/42/118143/huawei-nova-2i-hh-600x600-600x600.jpg", mobileCategory),
+                new Product("Smartphone Gear X", 799.99, "MobileGear", "White", "A premium smartphone for tech enthusiasts.", "https://cdn.tgdd.vn/Products/Images/42/113572/xiaomi-mi-a1-vang-hong-600x600.jpg", mobileCategory),
+                new Product("Smartphone Lite B", 599.99, "TechNova", "Blue", "Lightweight smartphone with sleek design.", "https://cdn.tgdd.vn/Products/Images/42/317530/samsung-galaxy-a05s-sliver-thumbnew-600x600.jpg", mobileCategory),
+
+                // Laptop
+                new Product("Laptop Ultra Nova", 1299.99, "TechNova", "Black", "High-performance laptop for professionals.", "https://cdn.tgdd.vn/Products/Images/44/323325/hp-240-g10-i5-9h2e4pt-thumb-600x600.jpg", laptopCategory),
+                new Product("Gaming Laptop XG", 1499.99, "MobileGear", "White", "A gaming laptop with stunning graphics.", "https://cdn.tgdd.vn/Products/Images/44/327408/hp-probook-450-g10-i7-9h8h1pt-thumb-600x600.jpg", laptopCategory),
+                new Product("Laptop Slim Nova", 899.99, "TechNova", "Blue", "Ultra-slim laptop with excellent portability.", "https://cdn.tgdd.vn/Products/Images/44/325050/acer-swift-go-14-ai-73-53x7-ultra-5-nxkslsv001-thumb-600x600.jpg", laptopCategory),
+
+                // Watch
+                new Product("Fitness Watch FitPro", 199.99, "FitTime", "Black", "Track your fitness metrics accurately.", "https://cdn.tgdd.vn/Products/Images/7077/248752/samsung-galaxy-watch-4-40mm-tn-2-600x600.jpg", watchCategory),
+                new Product("Luxury Watch GearTime", 399.99, "MobileGear", "White", "A stylish smartwatch with premium features.", "https://cdn.tgdd.vn/Products/Images/7264/293584/orient-ra-aa0812l19b-nam-thumb-600x600.jpg", watchCategory),
+                new Product("Smart Watch NovaFit", 249.99, "TechNova", "Blue", "A feature-packed smartwatch for everyday use.", "https://cdn.tgdd.vn/Products/Images/7264/199608/g-shock-ga-710gb-1adr-den-thumb-600x600.jpg", watchCategory)
         );
 
-        for (Product product : products) {
-            productRepository.save(product);
-        }
+        productRepository.saveAll(products);
     }
 }
