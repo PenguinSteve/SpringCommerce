@@ -46,7 +46,7 @@
                     <div id="user-menu" class="dropdown-menu" style="display: none;">
                       <p id="user">Guest</p>
                       <a href="/login" id="login">Login</a>
-                      <a href="/logout" id="logout" style="display: none;">Logout</a>
+                      <a href="" id="logout" style="display: none;">Logout</a>
                       <a href="/register" id="register">Register</a>
                     </div>
                   </li>
@@ -205,17 +205,21 @@
 
   <script src="js/main.js"></script>
   <script>
-    document.querySelectorAll('.form-control').forEach(function(input) {
-      input.addEventListener('input', function() {
-        // Chỉ cho phép nhập số
-        if (parseInt(this.value) < 1) {
-          this.value = 1;
-        }
-        else if (isNaN(this.value)) {
-          this.value = 1;
+    $(document).ready(function() {
+      $('.form-control').on('input', function() {
+        if (parseInt($(this).val()) < 1 || isNaN($(this).val())) {
+          $(this).val(1);
         }
       });
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        $('#user').text(user.name);
+        $('#login').hide();
+        $('#register').hide();
+        $('#logout').show();
+      }
     });
+
   </script>
   </body>
 </html>

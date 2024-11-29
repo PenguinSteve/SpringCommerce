@@ -40,7 +40,7 @@
             <div class="col-6 col-md-4 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>
-                  <li><a href="/logout">Logout</a></li>
+                  <li><a href="" id="logout">Logout</a></li>
                 </ul>
               </div> 
             </div>
@@ -114,6 +114,18 @@
   <script src="/js/jquery.magnific-popup.min.js"></script>
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
-    
+  <script>
+    $(document).ready(function() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user || user.role !== 'ADMIN') {
+        window.location.href = '/error';
+      }
+      $('#logout').on('click', function(event) {
+        event.preventDefault();
+        localStorage.clear();
+        window.location.href = '/logout';
+      });
+    });
+  </script>
   </body>
 </html>

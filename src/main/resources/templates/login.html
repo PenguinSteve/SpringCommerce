@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
     <link rel="stylesheet" href="/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -18,14 +18,14 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-  
+
   <div class="site-wrap">
     <header class="site-navbar" role="banner">
       <div class="site-navbar-top">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
-              
+
             </div>
             <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
               <div class="site-logo">
@@ -34,7 +34,7 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </header>
 
     <div class="bg-light py-3">
@@ -43,18 +43,18 @@
           <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Login</strong></div>
         </div>
       </div>
-    </div>  
+    </div>
 
     <div class="site-section">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-6">
             <h2 class="h3 mb-3 text-black">Login</h2>
-            <form action="/login" method="post">
+            <form id="loginForm">
               <div class="p-3 p-lg-5 border">
                 <div class="form-group row">
                   <div class="col-md-12">
-                    <label for="username" class="text-black">Email</label>
+                    <label for="email" class="text-black">Email</label>
                     <input type="text" class="form-control" id="email" name="email" required>
                   </div>
                 </div>
@@ -91,6 +91,46 @@
   <script src="/js/jquery.magnific-popup.min.js"></script>
   <script src="/js/aos.js"></script>
   <script src="/js/main.js"></script>
-    
+  <script>
+    $(document).ready(function() {
+      $('#loginForm').on('submit', function(event) {
+        event.preventDefault();
+        const email = $('#email').val();
+        const password = $('#password').val();
+
+        $.ajax({
+          url: '/api/user/login',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({ email: email, password: password }),
+          success: function(response) {
+            if(response.message === 'Login successfully'){
+              // Extract token and role from the response data
+              const token = response.data.token;
+
+              const user = response.data.user;
+
+              // Store the JWT token in local storage
+              localStorage.setItem('jwtToken', token);
+              localStorage.setItem('user', JSON.stringify(user))
+              // Check the user's role and redirect accordingly
+              if (user.role === 'ADMIN') {
+                window.location.href = '/admin'
+              } else {
+                window.location.href = '/home'
+              }
+            }
+            else{
+              alert('Login failed: ' + response.message)
+            }
+          },
+          error: function(error) {
+            // Handle error response
+            console.error('Login failed:', error);
+          }
+        });
+      });
+    });
+  </script>
   </body>
 </html>

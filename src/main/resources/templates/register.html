@@ -60,7 +60,7 @@
         <div class="row justify-content-center">
           <div class="col-md-7 mb-5">
             <h2 class="h3 mb-3 text-black text-center">Register</h2>
-            <form action="/register" method="post">
+            <form action="/api/user/register" method="post">
               <div class="p-3 p-lg-5 border">
                 <div class="form-group row">
                   <div class="col-md-12">
@@ -132,15 +132,43 @@
   <script src="/js/main.js"></script>
   
   <script>
-    // Client-side password confirmation check
-    document.querySelector('form').addEventListener('submit', function(e) {
-      var password = document.getElementById('password');
-      var confirm_password = document.getElementById('confirm_password');
-      
-      if (password.value != confirm_password.value) {
+    $(document).ready(function() {
+      $('form').on('submit', function(e) {
         e.preventDefault();
-        alert('Passwords do not match.');
-      }
+        var password = $('#password').val();
+        var confirm_password = $('#confirm_password').val();
+
+        if (password !== confirm_password) {
+          alert('Passwords do not match.');
+          return;
+        }
+
+        var formData = {
+          name: $('#name').val(),
+          email: $('#email').val(),
+          phone: $('#phone').val(),
+          address: $('#address').val(),
+          password: password
+        };
+
+        $.ajax({
+          url: '/api/user/register',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(formData),
+          success: function(response) {
+            if (response.message === 'User registered successfully') {
+              alert('Registration success')
+              window.location.href = '/login';
+            } else {
+              alert('Registration failed: ' + response.message);
+            }
+          },
+          error: function(error) {
+            alert('Registration failed: ' + error.responseJSON.message);
+          }
+        });
+      });
     });
   </script>
     

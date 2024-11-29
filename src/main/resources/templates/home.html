@@ -49,7 +49,7 @@
                     <div id="user-menu" class="dropdown-menu" style="display: none;">
                       <p id="user">Guest</p>
                       <a href="/login" id="login">Login</a>
-                      <a href="/logout" id="logout" style="display: none;">Logout</a>
+                      <a href="" id="logout" style="display: none;">Logout</a>
                       <a href="/register" id="register">Register</a>
                     </div>
                   </li>
@@ -331,40 +331,54 @@
 
   <!-- Script for dropdown filter -->
   <script>
-    var filters = {};
-  
-    document.querySelectorAll('.dropdown-item').forEach(function(button) {
-      button.addEventListener('click', function() {
-        var value = this.getAttribute('data-value');
-        var dropdownButton = this.closest('.dropdown').querySelector('.dropdown-toggle');
-        dropdownButton.textContent = value;
-  
-        // Lưu trữ giá trị đã chọn
-        var filterType = dropdownButton.id.replace('dropdownMenu', '').toLowerCase();
+    $(document).ready(function() {
+
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        $('#user').text(user.name);
+        $('#login').hide();
+        $('#register').hide();
+        $('#logout').show();
+      }
+
+      $('#logout').on('click', function(event) {
+        event.preventDefault();
+        localStorage.clear();
+        window.location.href = '/logout';
+      });
+
+      var filters = {};
+
+      $('.dropdown-item').on('click', function() {
+        var value = $(this).data('value');
+        var dropdownButton = $(this).closest('.dropdown').find('.dropdown-toggle');
+        dropdownButton.text(value);
+
+        // Store the selected value
+        var filterType = dropdownButton.attr('id').replace('dropdownMenu', '').toLowerCase();
         if (value === 'All') {
           delete filters[filterType];
         } else {
           filters[filterType] = value;
         }
-  
-        // Gửi giá trị tới server để lấy dữ liệu
-        fetch('/your-server-endpoint', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
+
+        // Send the values to the server to get data
+        $.ajax({
+          url: '/your-server-endpoint',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(filters),
+          success: function(data) {
+            // Handle the data received from the server
+            console.log(data);
           },
-          body: JSON.stringify(filters)
-        })
-        .then(response => response.json())
-        .then(data => {
-          // Xử lý dữ liệu nhận được từ server
-          console.log(data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
+          error: function(error) {
+            console.error('Error:', error);
+          }
         });
       });
     });
+
   </script>
   </body>
 </html>

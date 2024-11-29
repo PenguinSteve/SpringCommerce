@@ -37,7 +37,7 @@
             <div class="col-6 col-md-4 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>
-                  <li><a href="/logout">Logout</a></li>
+                  <li><a href="" id="logout">Logout</a></li>
                 </ul>
               </div> 
             </div>
@@ -62,7 +62,7 @@
             <h2 class="h3 mb-3 text-black">Create New Product</h2>
           </div>
         </div>
-        <form action="/admin/create-product" method="post" enctype="multipart/form-data">
+        <form action="/api/product" method="post" enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
               <div class="p-3 p-lg-5 border">
@@ -127,37 +127,41 @@
   <script src="/js/main.js"></script>
   
   <script>
-    document.getElementById('image').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      
-      reader.onload = function(e) {
-        document.getElementById('imagePreview').src = e.target.result;
-      }
-      
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    });
+    $(document).ready(function() {
+      $('#logout').on('click', function(event) {
+        event.preventDefault();
+        localStorage.clear();
+        window.location.href = '/logout';
+      });
+      $('#image').on('change', function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
 
-    // Prevent negative prices
-    document.getElementById('price').addEventListener('input', function(e) {
-        if (this.value < 0) {
-            this.value = 0;
+        reader.onload = function(e) {
+          $('#imagePreview').attr('src', e.target.result);
         }
-        else if (isNaN(this.value)) {
-            this.value = 0;
-        }
-    });
 
-    // Prevent form submission if price is negative
-    document.querySelector('form').addEventListener('submit', function(e) {
-        const price = document.getElementById('price').value;
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Prevent negative prices
+      $('#price').on('input', function() {
+        if ($(this).val() < 0 || isNaN($(this).val())) {
+          $(this).val(0);
+        }
+      });
+
+      // Prevent form submission if price is negative
+      $('form').on('submit', function(e) {
+        const price = $('#price').val();
         if (price < 0) {
-            e.preventDefault();
-            alert('Price cannot be negative.');
+          e.preventDefault();
+          alert('Price cannot be negative.');
         }
-    }); 
+      });
+    });
   </script>
     
   </body>

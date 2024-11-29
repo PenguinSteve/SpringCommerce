@@ -45,7 +45,7 @@
                     <div id="user-menu" class="dropdown-menu" style="display: none;">
                       <p id="user">Guest</p>
                       <a href="/login" id="login">Login</a>
-                      <a href="/logout" id="logout" style="display: none;">Logout</a>
+                      <a href="" id="logout" style="display: none;">Logout</a>
                       <a href="/register" id="register">Register</a>
                     </div>
                   </li>
@@ -83,12 +83,12 @@
             <div class="p-3 p-lg-5 border">
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_fname" name="c_fname">
+                  <label for="firstName" class="text-black">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="firstName" name="firstName">
                 </div>
                 <div class="col-md-6">
-                  <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_lname" name="c_lname">
+                  <label for="lastName" class="text-black">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="lastName" name="lastName">
                 </div>
               </div>
 
@@ -160,6 +160,16 @@
   <script src="/js/aos.js"></script>
 
   <script src="/js/main.js"></script>
-    
+  <script>
+    $(document).ready(function() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        $('#user').text(user.name);
+        $('#login').hide();
+        $('#register').hide();
+        $('#logout').show();
+      }
+    });
+  </script>
   </body>
 </html>
