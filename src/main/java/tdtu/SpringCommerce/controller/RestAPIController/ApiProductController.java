@@ -34,25 +34,23 @@ public class ApiProductController {
         return ResponseEntity.ok(new ApiResponse("Products found", productService.getAllProducts()));
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<ApiResponse> createProduct(@RequestParam("name") String name,
-                                                  @RequestParam("price") String price,
-                                                  @RequestParam("brand") String brand,
-                                                  @RequestParam("color") String color,
-                                                  @RequestParam("category") String category,
-                                                  @RequestParam("description") String description,
-                                                  @RequestParam("image") MultipartFile image){
+                                                     @RequestParam("price") Double price,
+                                                     @RequestParam("brand") String brand,
+                                                     @RequestParam("color") String color,
+                                                     @RequestParam("description") String description,
+                                                     @RequestParam("category") String category,
+                                                     @RequestPart("image") MultipartFile imageURL){
         try{
-
             AddProductRequest request = new AddProductRequest();
             request.setName(name);
-            request.setPrice(Double.parseDouble(price));
+            request.setPrice(price);
             request.setBrand(brand);
             request.setColor(color);
-            request.setCategory(category);
             request.setDescription(description);
-            request.setImageURL(image);
-
+            request.setCategory(category);
+            request.setImageURL(imageURL);
             Product createdProduct = productService.addProduct(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Product created successfully", createdProduct));
         }
@@ -63,8 +61,22 @@ public class ApiProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable Long id,
-                                                     @RequestBody UpdateProductRequest request) {
+                                                     @RequestParam("name") String name,
+                                                     @RequestParam("price") Double price,
+                                                     @RequestParam("brand") String brand,
+                                                     @RequestParam("color") String color,
+                                                     @RequestParam("description") String description,
+                                                     @RequestParam("category") String category,
+                                                     @RequestPart("image") MultipartFile imageURL) {
         try {
+            UpdateProductRequest request = new UpdateProductRequest();
+            request.setName(name);
+            request.setPrice(price);
+            request.setBrand(brand);
+            request.setColor(color);
+            request.setDescription(description);
+            request.setCategory(category);
+            request.setImageURL(imageURL);
             Product updatedProduct = productService.updateProduct(id, request);
             return ResponseEntity.ok(new ApiResponse("Product updated successfully", updatedProduct));
         } catch (RuntimeException e) {

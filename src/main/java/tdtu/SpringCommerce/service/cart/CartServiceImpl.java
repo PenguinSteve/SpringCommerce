@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tdtu.SpringCommerce.model.ShoppingCart;
+import tdtu.SpringCommerce.model.User;
 import tdtu.SpringCommerce.repository.CartItemRepository;
 import tdtu.SpringCommerce.repository.CartRepository;
+import tdtu.SpringCommerce.repository.UserRepository;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -14,6 +16,8 @@ public class CartServiceImpl implements CartService{
 
     @Autowired
     private CartItemRepository cartItemRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public ShoppingCart getCart(Long id) {
@@ -38,9 +42,14 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public Long initializeNewCart() {
+    public Long initializeNewCart(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         ShoppingCart newCart = new ShoppingCart();
-        return cartRepository.save(newCart).getId();
+        newCart.setUser(user);
+        newCart = cartRepository.save(newCart);
+        user.setShoppingCart(newCart);
+        userRepository.save(user);
+        return newCart.getId();
     }
 
     @Override

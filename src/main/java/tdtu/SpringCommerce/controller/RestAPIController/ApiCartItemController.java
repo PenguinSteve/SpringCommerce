@@ -24,10 +24,11 @@ public class ApiCartItemController {
         try {
             Long cartId = request.getCartId();
             Long productId = request.getProductId();
+            Long userId = request.getUserId();
             int quantity = request.getQuantity();
 
             if (request.getCartId() == null) {
-                request.setCartId(cartService.initializeNewCart());
+                cartId = cartService.initializeNewCart(userId);
             }
             cartItemService.addItemToCart(cartId, productId, quantity);
             return ResponseEntity.ok(new ApiResponse("Add Item Success", null));
