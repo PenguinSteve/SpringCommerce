@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
-    
+
   </head>
   <body>
-  
+
   <div class="site-wrap">
     <header class="site-navbar" role="banner">
       <div class="site-navbar-top">
@@ -56,16 +56,16 @@
                       <span class="icon icon-shopping_cart"></span>
                       <span class="count">0</span>
                     </a>
-                  </li> 
-                 
+                  </li>
+
                 </ul>
-              </div> 
+              </div>
             </div>
 
           </div>
         </div>
-      </div> 
-      
+      </div>
+
     </header>
 
     <div class="bg-light py-3">
@@ -177,7 +177,7 @@
         let count = 0;
         cartItems.forEach(item => {
           totalQuantity += item.quantity;
-          totalPrice += item.totalPrice;
+          totalPrice += Number(item.totalPrice);
           count++;
         });
 
@@ -190,34 +190,76 @@
         let cartHtml = '';
         cartItems.forEach(item => {
           cartHtml += `
-        <tr>
+        <tr data-id="${item.product.productId}">
           <td class="product-thumbnail">
             <img src="${item.product.imageURL}" alt="Image" class="img-fluid">
           </td>
           <td class="product-name">
             <h2 class="h5 text-black">${item.product.name}</h2>
           </td>
-          <td>$${item.unitPrice.toFixed(2)}</td>
+          <td class="product-price">$${item.unitPrice.toFixed(2)}</td>
           <td class="product-quantity text-center">
             <div class="input-group mb-3" style="max-width: 120px; margin: 0 auto;">
               <div class="input-group-prepend">
                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
               </div>
-              <input type="text" class="form-control text-center" value="${item.quantity}" required placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <input type="text" class="form-control text-center quantity-input" value="${item.quantity}" required placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
               </div>
             </div>
           </td>
-          <td>$${item.totalPrice.toFixed(2)}</td>
-          <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+          <td class="product-total">$${item.totalPrice.toFixed(2)}</td>
+          <td><a href="#" class="btn btn-primary btn-sm remove-item">X</a></td>
         </tr>
       `;
         });
         $('tbody').html(cartHtml);
       }
 
-      if (user && cartId) {
+      function fetchProductDetails(items, callback) {
+        const cartItems = [];
+        let itemsProcessed = 0;
+
+        items.forEach(item => {
+          $.ajax({
+            url: `http://localhost:8080/api/product/${item.productId}`,
+            type: 'GET',
+            success: function(response) {
+              const product = response.data;
+              cartItems.push({
+                product: product,
+                quantity: item.quantity,
+                unitPrice: product.price,
+                totalPrice: product.price * item.quantity
+              });
+              itemsProcessed++;
+              if (itemsProcessed === items.length) {
+                callback(cartItems);
+              }
+            },
+            error: function(error) {
+              console.error('Error fetching product details:', error);
+              itemsProcessed++;
+              if (itemsProcessed === items.length) {
+                callback(cartItems);
+              }
+            }
+          });
+        });
+      }
+      function updateCartItem(cartItems, productId, newQuantity) {
+
+        const item = cartItems.find(item => item.productId == productId);
+
+        if (item) {
+          item.quantity = newQuantity;
+          item.totalPrice = item.unitPrice * newQuantity;
+        }
+        return cartItems;
+      }
+
+      if (user && cartId && cartId !== 'null') {
         const token = localStorage.getItem('token');
         $.ajax({
           url: `http://localhost:8080/api/cart/${cartId}`,
@@ -236,9 +278,57 @@
         });
       } else {
         let items = JSON.parse(localStorage.getItem('items')) || [];
-        renderCartItems(items);
-        updateCartTotals(items);
+        fetchProductDetails(items, function(cartItems) {
+          renderCartItems(cartItems);
+          updateCartTotals(cartItems);
+        });
       }
+
+      // Event delegation for dynamically added elements
+      $(document).on('input', '.quantity-input', function() {
+        const newQuantity = parseInt($(this).val()) || 1;
+        $(this).val(newQuantity);
+        const productId = $(this).closest('tr').data('id');
+
+        if(user && cartId && cartId !== 'null'){
+
+        }else{
+          let items = JSON.parse(localStorage.getItem('items')) || [];
+          items = updateCartItem(items, productId, newQuantity);
+          localStorage.setItem('items', JSON.stringify(items));
+
+          const unitPrice = parseFloat($(this).closest('tr').find('.product-price').text().replace('$', ''));
+          const newTotal = (unitPrice * newQuantity).toFixed(2);
+          $(this).closest('tr').find('.product-total').text(`$${newTotal}`);
+
+          updateCartTotals(items);
+        }
+      });
+
+      // Increment and decrement quantity
+      $(document).on('click', '.js-btn-minus, .js-btn-plus', function(e) {
+        e.preventDefault();
+        const input = $(this).closest('.input-group').find('.quantity-input');
+        let newQuantity = parseInt(input.val());
+
+        if ($(this).hasClass('js-btn-minus')) {
+          newQuantity = Math.max(1, newQuantity - 1);
+        } else {
+          newQuantity += 1;
+        }
+
+        input.val(newQuantity).trigger('input');
+      });
+
+      $(document).on('click', '.remove-item', function(e) {
+        e.preventDefault();
+        const productId = $(this).closest('tr').data('id');
+        let items = JSON.parse(localStorage.getItem('items')) || [];
+        items = items.filter(item => item.product.id !== productId);
+        localStorage.setItem('items', JSON.stringify(items));
+        $(this).closest('tr').remove();
+        updateCartTotals(items);
+      });
 
       $('#logout').on('click', function(event) {
         event.preventDefault();

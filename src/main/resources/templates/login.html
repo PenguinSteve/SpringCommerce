@@ -111,9 +111,11 @@
 
               const user = response.data.user;
 
+              const cartId = response.data.user.shoppingCart ? response.data.user.shoppingCart.id : null;
               // Store the JWT token in local storage
+              localStorage.setItem('cartId', cartId);
               localStorage.setItem('token', token);
-              localStorage.setItem('user', JSON.stringify(user))
+              localStorage.setItem('user', JSON.stringify(user));
               // Check the user's role and redirect accordingly
               if (user.role === 'ADMIN') {
                 window.location.href = '/admin'

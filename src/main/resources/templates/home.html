@@ -176,7 +176,7 @@
       $('#logout').show();
     }
 
-    if (user && cartId) {
+    if (user && cartId && cartId !== 'null') {
       const token = localStorage.getItem('token');
       $.ajax({
         url: `http://localhost:8080/api/cart/${cartId}`,

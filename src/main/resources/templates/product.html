@@ -90,7 +90,7 @@
           <p><strong>Category:</strong> <span id="product-category">Loading...</span></p>
           <p><strong>Brand:</strong> <span id="product-brand">Loading...</span></p>
           <p><strong>Color:</strong> <span id="product-color">Loading...</span></p>
-          <p><strong class="text-primary h4" id="product-price">$0.00</strong></p>
+          <p class="text-primary h4">$<strong class="text-primary h4" id="product-price">0.00</strong></p>
 
           <div class="mb-5">
             <div class="input-group mb-3" style="max-width: 120px;">
@@ -125,6 +125,8 @@
 <script>
   $(document).ready(function() {
     const user = JSON.parse(localStorage.getItem('user'));
+    const cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : null;
+
     if (user) {
       $('#user').text(user.name);
       $('#login').hide();
@@ -132,6 +134,26 @@
       $('#logout').show();
     }
 
+    if (user && cartId && cartId !== 'null') {
+      const token = localStorage.getItem('token');
+      $.ajax({
+        url: `http://localhost:8080/api/cart/${cartId}`,
+        type: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        success: function(cartResponse) {
+          const cartItems = cartResponse.data.cartItems;
+          $('.count').text(cartItems.length);
+        },
+        error: function(error) {
+          console.error('Error fetching cart details:', error);
+        }
+      });
+    } else {
+      let items = JSON.parse(localStorage.getItem('items')) || [];
+      $('.count').text(items.length);
+    }
     // Logout
     $('#logout').on('click', function(event) {
       event.preventDefault();
@@ -167,7 +189,7 @@
         $('#product-category').text(product.category.name);
         $('#product-brand').text(product.brand);
         $('#product-color').text(product.color);
-        $('#product-price').text(`$${product.price.toFixed(2)}`);
+        $('#product-price').text(`${product.price.toFixed(2)}`);
         $('#product-image').attr('src', product.imageURL);
         $('#product-image').attr('alt', product.name);
       },
@@ -182,15 +204,17 @@
     $('.buy-now').on('click', function(event) {
       event.preventDefault();
       const quantity = parseInt($('#quantity').val());
+      const unitPrice = parseFloat($('#product-price').text().trim().replace('$', ''));
       const item = {
         productId: productId,
-        quantity: quantity
+        quantity: quantity,
+        unitPrice: unitPrice
       };
+
 
       if (user) {
         const token = localStorage.getItem('token');
         const userId = user.id;
-        const cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : null;
 
         $.ajax({
           url: 'http://localhost:8080/api/cart_item',
@@ -241,9 +265,12 @@
           items.push(item);
         }
         localStorage.setItem('items', JSON.stringify(items));
+        alert('Product added to cart successfully!');
         $('.count').text(items.length);
       }
     });
+
+
   });
 </script>
 </body>
