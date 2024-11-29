@@ -54,6 +54,26 @@ Các Restful API của dự án:
 ![image](https://github.com/user-attachments/assets/54524ed8-30b5-47b2-8122-63bd8082cd76)
 - Create product:
 Header: Authorization Bearer Token (Token của người dùng admin)
+![image](https://github.com/user-attachments/assets/3bf5339f-a173-413b-9b72-315d3814f763)
+- Update product by id:
+Header: Authorization Bearer Token (Token của người dùng admin)
+![image](https://github.com/user-attachments/assets/aada1169-8670-41f8-96c2-650745fe7d31)
+- Delete product by id:
+Header: Authorization Bearer Token (Token của người dùng admin)
+![image](https://github.com/user-attachments/assets/61194010-5ff1-4c26-a44c-dbf7e8456e68)
+- Search product by criteria:
+![image](https://github.com/user-attachments/assets/5e2f57c6-3d56-40fa-a198-f9acff613a4b)
+- Search product by name:
+![image](https://github.com/user-attachments/assets/ab93cf36-3b2c-4085-83fe-90238c08766d)
+- Get all categories:
+![image](https://github.com/user-attachments/assets/1f5f17f2-9e41-4ca5-a886-332568611f12)
+- Get category by id:
+![image](https://github.com/user-attachments/assets/e07148b3-f750-457d-b302-32e6fd9fdf8b)
+
+
+
+
+
 
 
 
