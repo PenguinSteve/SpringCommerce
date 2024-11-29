@@ -44,36 +44,16 @@ Viable Product) với các tính năng sau:
 - Truy cập vào localhost:8080.
 
 Các Restful API của dự án:
-- User:
-+ **Register User**:<br>
-  **URL**: /api/user/register<br>
-  **Method**: POST<br>
-  **Request Body**:<br>
-  <div>{<br>
-    "email": "string",<br>
-    "name": "string",<br>
-    "password": "string"<br>
-  }<br></div>
-  Response:<br>
-  Status: 201 Created<br>
-  Body:<br>
-  {<br>
-    "message": "User registered successfully",<br>
-    "data": {<br>
-      "id": "long",<br>
-      "email": "string",<br>
-      "name": "string"<br>
-    }<br>
-  }<br>
-  Status: 400 Bad Request<br>
-  Body:<br>
-  {<br>
-  "message": "Error message",<br>
-  "data": null<br>
-  }<br>
-  {
-    "message": "Error message",
-    "data": null
-  }
+- Login:
+![image](https://github.com/user-attachments/assets/f1d205ec-505a-4766-8339-05d0a4dfdbbb)
+- Register:
+![image](https://github.com/user-attachments/assets/82f48760-e910-4b77-be64-0ae3c07b35a6)
+- Get all products:
+![image](https://github.com/user-attachments/assets/77fc4f35-203b-42e3-9947-bac9349e47f8)
+- Get product by id:
+![image](https://github.com/user-attachments/assets/54524ed8-30b5-47b2-8122-63bd8082cd76)
+- Create product:
+Header: Authorization Bearer Token (Token của người dùng admin)
 
-  
+
+
