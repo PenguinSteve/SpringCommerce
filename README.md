@@ -45,28 +45,32 @@ Viable Product) với các tính năng sau:
 
 Các Restful API của dự án:
 - User:
-+ Register User:
-  ****URL: /api/user/register
-  Method: POST
-  Request Body:
-  {
-    "email": "string",
-    "name": "string",
-    "password": "string"
-  }
-  Response:
-  Status: 201 Created
-  Body:
-  {
-    "message": "User registered successfully",
-    "data": {
-      "id": "long",
-      "email": "string",
-      "name": "string"
-    }
-  }
-  Status: 400 Bad Request
-  Body:
++ **Register User**:<br>
+  **URL**: /api/user/register<br>
+  **Method**: POST<br>
+  **Request Body**:<br>
+  <div>{<br>
+    "email": "string",<br>
+    "name": "string",<br>
+    "password": "string"<br>
+  }<br></div>
+  Response:<br>
+  Status: 201 Created<br>
+  Body:<br>
+  {<br>
+    "message": "User registered successfully",<br>
+    "data": {<br>
+      "id": "long",<br>
+      "email": "string",<br>
+      "name": "string"<br>
+    }<br>
+  }<br>
+  Status: 400 Bad Request<br>
+  Body:<br>
+  {<br>
+  "message": "Error message",<br>
+  "data": null<br>
+  }<br>
   {
     "message": "Error message",
     "data": null
