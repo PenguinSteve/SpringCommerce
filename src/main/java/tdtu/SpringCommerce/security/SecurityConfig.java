@@ -55,7 +55,7 @@ public class SecurityConfig {
         return http
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                    .requestMatchers("/api/user/login", "/api/user/register").permitAll()
+                    .requestMatchers("/api/user/login", "/api/user/register", "/api/order").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/product/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/api/product/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/product/**").hasRole("ADMIN")

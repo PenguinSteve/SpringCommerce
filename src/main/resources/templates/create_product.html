@@ -128,7 +128,13 @@
   
   <script>
     $(document).ready(function() {
-      //Logout
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = localStorage.getItem('token');
+      if (!user || user.role !== 'ADMIN') {
+        window.location.href = '/error';
+      }
+
+      // Logout
       $('#logout').on('click', function(event) {
         event.preventDefault();
 
@@ -159,6 +165,24 @@
         }
       });
 
+      // Fetch categories
+      $.ajax({
+        url: 'http://localhost:8080/api/category/',
+        type: 'GET',
+        success: function(response) {
+          const categories = response.data;
+          const categorySelect = $('#category');
+          categorySelect.empty();
+          categorySelect.append('<option value="" selected>Select a category</option>');
+          categories.forEach(category => {
+            categorySelect.append(`<option value="${category.name}">${category.name}</option>`);
+          });
+        },
+        error: function(error) {
+          console.error('Error fetching categories:', error);
+        }
+      });
+
       // Prevent negative prices
       $('#price').on('input', function() {
         if ($(this).val() < 0 || isNaN($(this).val())) {
@@ -168,14 +192,36 @@
 
       // Prevent form submission if price is negative
       $('form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
         const price = $('#price').val();
         if (price < 0) {
-          e.preventDefault();
           alert('Price cannot be negative.');
+          return;
         }
+
+        $.ajax({
+          url: '/api/product/',
+          type: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            alert('Product created successfully.');
+            window.location.href = '/admin';
+          },
+          error: function(error) {
+            console.error('Error creating product:', error);
+            alert('There was an error creating the product. Please try again later.');
+          }
+        });
       });
     });
   </script>
-    
+
   </body>
 </html>

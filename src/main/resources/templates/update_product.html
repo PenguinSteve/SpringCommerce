@@ -62,7 +62,7 @@
             <h2 class="h3 mb-3 text-black">Update Product</h2>
           </div>
         </div>
-        <form action="/admin/update-product" method="post" enctype="multipart/form-data">
+        <form action="" method="" enctype="multipart/form-data">
           <input type="hidden" id="productId" name="productId" value="">
           <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
@@ -97,7 +97,7 @@
                 <div class="form-group">
                   <label for="category" class="text-black">Category <span class="text-danger">*</span></label>
                   <select class="form-control" id="category" name="category" required>
-                    <option value="">Select a category</option>
+                    <option value="" selected>Select a category</option>
                     <option value="Clothing">Clothing</option>
                     <option value="Shoes">Shoes</option>
                     <option value="Accessories">Accessories</option>
@@ -129,7 +129,13 @@
   
   <script>
     $(document).ready(function() {
-      //Logout
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = localStorage.getItem('token');
+      if (!user || user.role !== 'ADMIN') {
+        window.location.href = '/error';
+      }
+
+      // Logout
       $('#logout').on('click', function(event) {
         event.preventDefault();
 
@@ -147,7 +153,6 @@
         });
       });
 
-
       $('#image').on('change', function(event) {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -161,24 +166,47 @@
         }
       });
 
-      // Function to populate form with existing product data
-      function populateForm(product) {
-        $('#productId').val(product.id);
+      // Extract productId from URL
+      const url = window.location.href;
+      const productId = url.substring(url.lastIndexOf('/') + 1);
+
+      // Fetch categories and product details
+      $.when(
+              $.ajax({
+                url: 'http://localhost:8080/api/category/',
+                type: 'GET'
+              }),
+              $.ajax({
+                url: `http://localhost:8080/api/product/${productId}`,
+                type: 'GET'
+              })
+      ).then(function(categoryResponse, productResponse) {
+        const categories = categoryResponse[0].data;
+        const categorySelect = $('#category');
+        categorySelect.empty();
+        categorySelect.append('<option value="" selected>Select a category</option>');
+        categories.forEach(category => {
+          categorySelect.append(`<option value="${category.name}">${category.name}</option>`);
+        });
+
+        const product = productResponse[0].data;
+        $('#productId').val(product.productId);
         $('#name').val(product.name);
         $('#price').val(product.price);
         $('#brand').val(product.brand);
         $('#color').val(product.color);
-        $('#category').val(product.category);
+        $('#category').val(product.category.name); // Set the category name as the value
         $('#description').val(product.description);
-        $('#imagePreview').attr('src', product.imageUrl);
-      }
+        $('#imagePreview').attr('src', product.imageURL);
 
-      // Fetch product data and populate form (example)
-      const productId = $('#productId').val();
-      $.getJSON('/api/product/' + productId, function(product) {
-        populateForm(product);
+        // Set the selected option in the category select element
+        $('#category option').each(function() {
+          if ($(this).val() == product.category.name) {
+            $(this).prop('selected', true);
+          }
+        });
       }).fail(function(error) {
-        console.error('Error:', error);
+        console.error('Error fetching data:', error);
       });
 
       // Prevent negative prices
@@ -190,14 +218,34 @@
 
       // Prevent form submission if price is negative
       $('form').on('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
         const price = $('#price').val();
         if (price < 0) {
-          e.preventDefault();
           alert('Price cannot be negative.');
+          return;
         }
+
+        $.ajax({
+          url: `/api/product/${productId}`,
+          type: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            window.location.href = '/admin';
+          },
+          error: function(error) {
+            console.error('Error updating product:', error);
+            alert('There was an error updating the product. Please try again later.');
+          }
+        });
       });
     });
   </script>
-    
   </body>
 </html>

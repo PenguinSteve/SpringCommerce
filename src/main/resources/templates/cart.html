@@ -177,7 +177,7 @@
         let count = 0;
         cartItems.forEach(item => {
           totalQuantity += item.quantity;
-          totalPrice += Number(item.totalPrice);
+          totalPrice += item.unitPrice * item.quantity;
           count++;
         });
 
@@ -187,6 +187,8 @@
       }
 
       function renderCartItems(cartItems) {
+        cartItems.sort((a, b) => a.product.productId - b.product.productId);
+
         let cartHtml = '';
         cartItems.forEach(item => {
           cartHtml += `
@@ -248,6 +250,7 @@
           });
         });
       }
+
       function updateCartItem(cartItems, productId, newQuantity) {
 
         const item = cartItems.find(item => item.productId == productId);
@@ -290,9 +293,47 @@
         $(this).val(newQuantity);
         const productId = $(this).closest('tr').data('id');
 
-        if(user && cartId && cartId !== 'null'){
+        //If login
+        if (user && cartId && cartId !== 'null') {
+          const token = localStorage.getItem('token');
+          const updateData = {
+            cartId: cartId,
+            productId: productId, // Replace with the actual product ID
+            quantity: newQuantity // Replace with the actual quantity
+          };
 
+          $.ajax({
+            url: 'http://localhost:8080/api/cart_item',
+            type: 'PUT',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(updateData),
+            success: function(updateResponse) {
+              // After updating the product, fetch the current cart details
+              $.ajax({
+                url: `http://localhost:8080/api/cart/${cartId}`,
+                type: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                },
+                success: function(cartResponse) {
+                  const cartItems = cartResponse.data.cartItems;
+                  renderCartItems(cartItems);
+                  updateCartTotals(cartItems);
+                },
+                error: function(error) {
+                  console.error('Error fetching cart details:', error);
+                }
+              });
+            },
+            error: function(error) {
+              console.error('Error updating cart item:', error);
+            }
+          });
         }else{
+          //If guest
           let items = JSON.parse(localStorage.getItem('items')) || [];
           items = updateCartItem(items, productId, newQuantity);
           localStorage.setItem('items', JSON.stringify(items));
@@ -320,16 +361,62 @@
         input.val(newQuantity).trigger('input');
       });
 
+      //Remove cart item
       $(document).on('click', '.remove-item', function(e) {
         e.preventDefault();
         const productId = $(this).closest('tr').data('id');
-        let items = JSON.parse(localStorage.getItem('items')) || [];
-        items = items.filter(item => item.product.id !== productId);
-        localStorage.setItem('items', JSON.stringify(items));
-        $(this).closest('tr').remove();
-        updateCartTotals(items);
+        const user = JSON.parse(localStorage.getItem('user'));
+        const cartId = localStorage.getItem('cartId');
+
+        if (user && cartId && cartId !== 'null') {
+          //For user
+          const token = localStorage.getItem('token');
+          const requestData = {
+            cartId: cartId,
+            productId: productId
+          };
+
+          $.ajax({
+            url: 'http://localhost:8080/api/cart_item',
+            type: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(requestData),
+            success: function(response) {
+              // After removing the item, fetch the current cart details
+              $.ajax({
+                url: `http://localhost:8080/api/cart/${cartId}`,
+                type: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                },
+                success: function(cartResponse) {
+                  const cartItems = cartResponse.data.cartItems;
+                  renderCartItems(cartItems);
+                  updateCartTotals(cartItems);
+                },
+                error: function(error) {
+                  console.error('Error fetching cart details:', error);
+                }
+              });
+            },
+            error: function(error) {
+              console.error('Error removing cart item:', error);
+            }
+          });
+        } else {
+          //For guest
+          let items = JSON.parse(localStorage.getItem('items')) || [];
+          items = items.filter(item => item.productId != productId);
+          localStorage.setItem('items', JSON.stringify(items));
+          $(this).closest('tr').remove();
+          updateCartTotals(items);
+        }
       });
 
+      //Log out
       $('#logout').on('click', function(event) {
         event.preventDefault();
 

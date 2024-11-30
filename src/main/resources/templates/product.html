@@ -125,7 +125,8 @@
 <script>
   $(document).ready(function() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : null;
+    var cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : null;
+
 
     if (user) {
       $('#user').text(user.name);
@@ -210,7 +211,7 @@
         quantity: quantity,
         unitPrice: unitPrice
       };
-
+      var cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : null;
 
       if (user) {
         const token = localStorage.getItem('token');

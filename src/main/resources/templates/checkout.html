@@ -53,7 +53,7 @@
                   <li>
                     <a href="/cart" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
+                      <span class="count">0</span>
                     </a>
                   </li> 
                  
@@ -123,22 +123,14 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                        <td>$250.00</td>
-                      </tr>
-                      <tr>
-                        <td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
-                        <td>$100.00</td>
-                      </tr>
-                      <tr>
                         <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                        <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+                        <td class="text-black font-weight-bold"><strong>$0.00</strong></td>
                       </tr>
                     </tbody>
                   </table>
 
                   <div class="form-group">
-                    <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='/thankyou'">Place Order</button>
+                    <button id="placeOrderButton" class="btn btn-primary btn-lg py-3 btn-block">Place Order</button>
                   </div>
 
                 </div>
@@ -163,12 +155,101 @@
   <script>
     $(document).ready(function() {
       const user = JSON.parse(localStorage.getItem('user'));
+      var cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : null;
+
       if (user) {
         $('#user').text(user.name);
         $('#login').hide();
         $('#register').hide();
         $('#logout').show();
+
+        // Fill billing details with user information
+        $('#firstName').val(user.name.split(' ')[0]);
+        $('#lastName').val(user.name.split(' ')[1]);
+        $('#c_email_address').val(user.email);
+        $('#c_phone').val(user.phoneNumber);
+        $('#c_address').val(user.address);
       }
+      // For User
+      if (user && cartId && cartId !== 'null') {
+        const token = localStorage.getItem('token');
+        $.ajax({
+          url: `http://localhost:8080/api/cart/${cartId}`,
+          type: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          success: function(cartResponse) {
+            const cartItems = cartResponse.data.cartItems;
+            $('.count').text(cartItems.length);
+
+            // Update order details with cart items
+            let orderHtml = '';
+            cartItems.forEach(item => {
+              orderHtml += `
+                          <tr>
+                            <td>${item.product.name} <strong class="mx-2">x</strong> ${item.quantity}</td>
+                            <td>$${(item.unitPrice * item.quantity).toFixed(2)}</td>
+                          </tr>`;
+            });
+
+            // Update the order total
+            const orderTotal = cartItems.reduce((total, item) => total + (item.unitPrice * item.quantity), 0);
+            orderHtml += `
+                        <tr>
+                          <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                          <td class="text-black font-weight-bold"><strong>$${orderTotal.toFixed(2)}</strong></td>
+                        </tr>`;
+
+            // Render the order details in the table
+            $('.site-block-order-table tbody').html(orderHtml);
+          },
+          error: function(error) {
+            console.error('Error fetching cart details:', error);
+          }
+        });
+      } else {
+        // For guest
+        let items = JSON.parse(localStorage.getItem('items')) || [];
+        $('.count').text(items.length);
+
+          // Function to fetch product data and render order details
+        function fetchProductDataAndRenderOrder(items) {
+          let orderHtml = '';
+          let orderTotal = 0;
+          let requests = items.map(item => {
+            return $.ajax({
+              url: `http://localhost:8080/api/product/${item.productId}`,
+              type: 'GET',
+              success: function(response) {
+                const product = response.data;
+                orderHtml += `
+                        <tr>
+                          <td>${product.name} <strong class="mx-2">x</strong> ${item.quantity}</td>
+                          <td>$${(item.unitPrice * item.quantity).toFixed(2)}</td>
+                        </tr>`;
+                orderTotal += item.unitPrice * item.quantity;
+              },
+              error: function(error) {
+                console.error('Error fetching product data:', error);
+              }
+            });
+          });
+
+          $.when.apply($, requests).then(function() {
+            orderHtml += `
+                    <tr>
+                      <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                      <td class="text-black font-weight-bold"><strong>$${orderTotal.toFixed(2)}</strong></td>
+                    </tr>`;
+            $('.site-block-order-table tbody').html(orderHtml);
+          });
+        }
+
+        // Fetch product data and render order details
+        fetchProductDataAndRenderOrder(items);
+      }
+
 
       $('#logout').on('click', function(event) {
         event.preventDefault();
@@ -187,6 +268,82 @@
         });
       });
 
+      $('#placeOrderButton').on('click', function(event) {
+        event.preventDefault();
+
+        // Get billing details
+        const firstName = $('#firstName').val().trim();
+        const lastName = $('#lastName').val().trim();
+        const address = $('#c_address').val().trim();
+        const email = $('#c_email_address').val().trim();
+        const phone = $('#c_phone').val().trim();
+
+        // Validate required fields
+        if (!firstName || !lastName || !address || !email || !phone) {
+          alert('All fields are required.');
+          return;
+        }
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const cartId = localStorage.getItem('cartId');
+
+        //Place order for user
+        if (user && cartId && cartId !== 'null') {
+          // For user
+          const requestData = {
+            userId: user.id,
+            address: address
+          };
+
+          $.ajax({
+            url: '/api/order',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
+            success: function(response) {
+              if (response.message === "Place order successfully!") {
+                window.location.href = '/thankyou';
+              } else {
+                alert('Error placing order: ' + response.message);
+              }
+            },
+            error: function(error) {
+              console.error('Error placing order:', error);
+              alert('There was an error placing the order. Please try again later.');
+            }
+          });
+        } else {
+          // place order for guest
+          const items = JSON.parse(localStorage.getItem('items')) || [];
+          const requestData = {
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            email: email,
+            phone: phone,
+            items: items
+          };
+
+          $.ajax({
+            url: '/api/order',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
+            success: function(response) {
+              if (response.message === "Place order successfully!") {
+                localStorage.removeItem('items');
+                window.location.href = '/thankyou';
+              } else {
+                alert('Error placing order: ' + response.message);
+              }
+            },
+            error: function(error) {
+              console.error('Error placing order:', error);
+              alert('There was an error placing the order. Please try again later.');
+            }
+          });
+        }
+      });
     });
   </script>
   </body>
